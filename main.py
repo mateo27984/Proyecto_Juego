@@ -17,7 +17,7 @@ ROJO = (255, 0, 0)
 fuente = pygame.font.SysFont(None, 36)
 
 def generar_palabra():
-    return random.choice(["sol", "luz", "nube", "fuego", "astro", "viento", "roca", "metal"])
+    return random.choice(["sol", "luz", "nube", "fuego", "astro", "viento", "roca", "metal","tierra","nave","","a","e","i","o","u"])
 nave = Nave(Ancho, Alto)
 """naveenemiga= NaveEnemiga(Alto)"""
 tierra = Tierra(Alto)
@@ -49,9 +49,7 @@ while not game_over:
                         pygame.mixer.Sound(sonidos[0]).play()
                         encontrado = True
                         if score==10:
-                          sonidos[3].play()
-                        
-
+                          sonidos[3].play(loops=-1)
                 if not encontrado:
                     vidas -= 1
                     sonidos[1].play()
@@ -86,16 +84,21 @@ while not game_over:
     Ventana.blit(fuente.render(palabra_actual, True, BLANCO), (Ancho // 2 - 140, 65))
     Ventana.blit(fuente.render(f"Score: {score}", True, BLANCO), (10, 50))
     Ventana.blit(fuente.render(f"Vidas: {vidas}", True, BLANCO), (Ancho - 140, 50))
-    if vidas <= 0 or tierra.explotado():
+    if vidas <= 0 or tierra.explotado() or score==20:
       game_over = True
-      if tierra.explotado():
+      if score==20:
+          mensaje="Ganaste"
+          pygame.mixer.Sound(sonidos[5]).play()
+      elif tierra.explotado():
         mensaje = "¡La Tierra fue destruida!"
+        pygame.mixer.Sound(sonidos[4]).play()
       else:
        mensaje = "¡Perdiste!"
+       pygame.mixer.Sound(sonidos[4]).play()
       texto = fuente.render(mensaje, True, ROJO)
       Ventana.blit(texto, (Ancho // 2 - 180, Alto // 2))
       pygame.display.flip()
-      pygame.time.wait(3000)
+      pygame.time.wait(2000)
 
 
     pygame.display.flip()

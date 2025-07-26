@@ -10,7 +10,9 @@ pygame.mixer.init()
 sonidos=(pygame.mixer.Sound('Juego/assets/sonidos/success-340660.mp3'),
 pygame.mixer.Sound('Juego/assets/sonidos/error-126627.mp3'),
  pygame.mixer.Sound('Juego/assets/sonidos/explosion-312361.mp3'),
-pygame.mixer.Sound('Juego/assets/sonidos/minifunk-67270.mp3'))
+pygame.mixer.Sound('Juego/assets/sonidos/minifunk-67270.mp3'),
+pygame.mixer.Sound('Juego/assets/sonidos/game-over-39-199830.mp3'),
+pygame.mixer.Sound('Juego/assets/sonidos/11l-victory_sound_with_t-1749487402950-357606.mp3'))
 
 
 class Tierra:
@@ -55,7 +57,12 @@ class Meteorito:
         self.palabra = palabra
         self.x = random.randint(0, ancho - self.imagen.get_width())
         self.y = -50
-        self.speed = random.randint(2, 4)
+        if len(palabra) <= 3:
+            self.speed = 5
+        elif len(palabra) <= 5:
+            self.speed = 4
+        else:
+            self.speed = 2
 
     def update(self):
         self.y += self.speed
