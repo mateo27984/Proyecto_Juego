@@ -86,7 +86,7 @@ while not game_over:
     Ventana.blit(fuente.render(f"Vidas: {vidas}", True, BLANCO), (Ancho - 140, 50))
     if vidas <= 0 or tierra.explotado() or score==20:
       game_over = True
-      if score==20:
+      if score==120:
           mensaje="Ganaste"
           pygame.mixer.Sound(sonidos[5]).play()
       elif tierra.explotado():
